@@ -35,7 +35,7 @@ class Student{
 
     static deleteStudent(studentId){
         let all = readData()
-        let newList = all.filter(element=> element.id == studentId)
+        let newList = all.filter(element=> element.id != studentId)
         if(newList.length < all.length) {
             writeData(newList)
         }
