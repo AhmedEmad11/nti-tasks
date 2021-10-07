@@ -1,0 +1,19 @@
+{{>navbar}}
+<table class="container my-4 table table-bordered">
+    <thead>
+        <th>id</th>
+        <th>title</th>
+        <th>description</th>
+        <th>completed</th>
+    </thead>
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.completed}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
