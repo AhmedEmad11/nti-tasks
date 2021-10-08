@@ -2,6 +2,7 @@ const http = require('http')
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
+const { response } = require('express')
 
 const staticFilesDir = path.join(__dirname, "../public")
 const layouts = path.join(__dirname, "../layouts")
@@ -26,18 +27,25 @@ app.get("/table", (req, res)=>{
     let url = "http://tasks-crud-api.herokuapp.com/task-list/"
     const request = http.request(url, (response)=>{
         let result = "" 
-        response.on('data', (dataPart)=>{
-            result += dataPart.toString()
-        })
-        
-        response.on('end', ()=>{
-            
-            data = JSON.parse(result)
-            res.render('table', {
-                pageTitle:"Table Page",
-                data:data,
+        if(response.statusCode == 200)
+        {
+            response.on('data', (dataPart)=>{
+                result += dataPart.toString()
             })
-        })
+            
+            response.on('end', ()=>{
+                
+                data = JSON.parse(result)
+                res.render('table', {
+                    pageTitle:"Table Page",
+                    data:data,
+                })
+            })
+        } else {
+            res.render('apiError', {
+                pageTitle:"couldn't load data"
+            })
+        }
     })
     request.end()
 })
