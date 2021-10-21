@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "9299117e-8654-43fe-8692-f4f3e805a8d2",
+		"name": "football",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "football data api",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "add comp",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "add comp team",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "add squad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "add news",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "get news",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "follow player",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "follow team",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "follow competition",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "get user's followed players' news",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTZkMzE0MzY4NzY1YTI4MWUxOTY4NzIiLCJpYXQiOjE2MzQ1NDYwMDB9.t-aR7XlHfYl8NXZ510SpcQx34t83neHyTYCt6n18m54",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/news/user/allPlayersNews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"news",
+						"user",
+						"allPlayersNews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user's followed teams' news",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTZkMzE0MzY4NzY1YTI4MWUxOTY4NzIiLCJpYXQiOjE2MzQ1NDYwMDB9.t-aR7XlHfYl8NXZ510SpcQx34t83neHyTYCt6n18m54",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/news/user/allPlayersNews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"news",
+						"user",
+						"allPlayersNews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user's followed competitions' news",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTZkMzE0MzY4NzY1YTI4MWUxOTY4NzIiLCJpYXQiOjE2MzQ1NDYwMDB9.t-aR7XlHfYl8NXZ510SpcQx34t83neHyTYCt6n18m54",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/news/user/allPlayersNews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"news",
+						"user",
+						"allPlayersNews"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
