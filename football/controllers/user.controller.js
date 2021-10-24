@@ -15,7 +15,7 @@ class UserController {
     }
     
     static addRoleToUser = async(req, res)=>{
-        let user = await User.findOne({eamil:"test3@test.com"})
+        let user = await User.findOne({eamil:req.body.email})
         let role = await Role.findOne({_id:req.body.role})
         user.roles.push(role)
         await user.save()
