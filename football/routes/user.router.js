@@ -1,10 +1,11 @@
 const router = require('express').Router()
+const NewsController = require('../controllers/news.controller')
 const UserController = require("../controllers/user.controller")
 const auth = require('../middleware/auth.middleware')
 
-router.post("/addPermission", auth('addPermission'), UserController.addPermission)
-router.post("/addRole", auth('addRole'), UserController.addRole)
-router.post("/addRoleToUser", auth('addRoleToUser'), UserController.addRoleToUser)
+// router.post("/addPermission", auth('addPermission'), UserController.addPermission)
+// router.post("/addRole", auth('addRole'), UserController.addRole)
+// router.post("/addRoleToUser", auth('addRoleToUser'), UserController.addRoleToUser)
 
 router.post("/register", UserController.register)
 router.post('/login', UserController.login)
@@ -20,5 +21,10 @@ router.post('/followCompetiton', auth('followCompetition'), UserController.follo
 router.get('/players', auth('showFollowedPlayers'), UserController.showPlayers)
 router.get('/teams', auth('showFollowedTeams'), UserController.showTeams)
 router.get('/competitions', auth('showFollowedCompetitions'), UserController.showCompetitions)
+
+
+router.get('/allPlayersNews', auth('showFollowedPlayersNews'), NewsController.showForUserPlayers)
+router.get('/allTeamsNews', auth('showFollowedTeamsNews'), NewsController.showForUserTeams)
+router.get('/allCompetitionsNews', auth('showFollowedCompetitionsNews'), NewsController.showForUserCompetitions)
 
 module.exports = router
