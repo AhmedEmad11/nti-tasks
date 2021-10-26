@@ -38,35 +38,6 @@ getFollowedNews = async(type, followed, cb)=>{
 
 class NewsController {
 
-    static add = async(req, res)=>{
-        try{
-            let news = new News(req.body)
-            await news.save()
-            res.send({apiStatus:true, message:"added", data: news})
-        }
-        catch(e){
-            res.status(500).send({
-                apiStatus: false,
-                data: e.message,
-                message:"error in adding news"
-            })
-        }
-    }
-
-    static delete = async(req, res)=>{
-        try{
-            await News.deleteOne({_id: req.params.id})
-            res.send({apiStatus:true, message:"news deleted", data:[]})
-        }
-        catch(e){
-            res.status(500).send({
-                apiStatus: false,
-                data: e.message,
-                message:"error in deleting news"
-            })
-        }
-    }
-
     static showAboutPlayer = async(req, res)=>{
         try{
             let news = await News.find({'aboutPlayers.id':req.params.id})

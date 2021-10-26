@@ -1,11 +1,8 @@
 const router = require('express').Router()
 const NewsController = require('../controllers/news.controller')
 const UserController = require("../controllers/user.controller")
-const auth = require('../middleware/auth.middleware')
 
-// router.post("/addPermission", auth('addPermission'), UserController.addPermission)
-// router.post("/addRole", auth('addRole'), UserController.addRole)
-// router.post("/addRoleToUser", auth('addRoleToUser'), UserController.addRoleToUser)
+const auth = require('../middleware/auth.middleware')
 
 router.post("/register", UserController.register)
 router.post('/login', UserController.login)

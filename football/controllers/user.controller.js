@@ -1,30 +1,13 @@
 const User = require("../db/models/user.model")
+const Role = require("../db/models/role.model")
 
 class UserController {
-
-    static addPermission = async(req, res)=>{
-        let perm = new Permission(req.body)
-        await perm.save()
-        res.send(perm)
-    }
-    
-    static addRole = async(req, res)=>{
-        let role = new Role(req.body)
-        await role.save()
-        res.send(role)
-    }
-    
-    static addRoleToUser = async(req, res)=>{
-        let user = await User.findOne({eamil:req.body.email})
-        let role = await Role.findOne({_id:req.body.role})
-        user.roles.push(role)
-        await user.save()
-        res.send(user)
-    }
     
     static register = async(req, res)=>{
         try{
             let user = new User(req.body)
+            let role = await Role.findOne({name:"user"})
+            user.roles.push(role)
             await user.save()
             res.send({apiStatus:true, message:"registered", data: user})
         }

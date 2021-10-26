@@ -1,26 +1,22 @@
 const router = require('express').Router()
 
-const UserController = require("../controllers/user.controller")
-const TeamController = require("../controllers/team.controller")
-const NewsController = require("../controllers/news.controller")
-const CompetitionController = require("../controllers/competition.controller")
+const adminController = require("../controllers/admin.controller")
 
 const auth = require('../middleware/auth.middleware')
 
+router.get('/addOrUpdateTeamSquad/:id', auth('addOrUpdateTeamSquad'), adminController.addOrUpdateTeamSquad)
+router.delete('/deleteTeam/:id', auth('deleteTeam'), adminController.deleteTeam)
 
+router.post("/addPermission", auth('addPermission'), adminController.addPermission)
+router.post("/addRole", auth('addRole'), adminController.addRole)
+router.post("/addRoleToUser", auth('addRoleToUser'), adminController.addRoleToUser)
+router.post("/addPermissionToRole", auth('addPermissionToRole'), adminController.addPermissionToRole)
 
-router.get('/addOrUpdateTeamSquad/:id', auth('addOrUpdateSquad'), TeamController.addOrUpdateTeamSquad)
-router.delete('/deleteTeam/:id', auth('deleteTeam'), TeamController.delete)
+router.post('/addNews', auth('addNews'), adminController.addNews)
+router.delete('/deleteNews/:id', auth('deleteNews'), adminController.deleteNews)
 
-router.post("/addPermission", auth('addPermission'), UserController.addPermission)
-router.post("/addRole", auth('addRole'), UserController.addRole)
-router.post("/addRoleToUser", auth('addRoleToUser'), UserController.addRoleToUser)
-
-router.post('/addNews', auth('addNews'), NewsController.add)
-router.delete('/deleteNews/:id', auth('deleteNews'), NewsController.delete)
-
-router.get('/addOrUpdateCompetition/:id', auth('addOrUpdate'), CompetitionController.addOrUpdate)
-router.get('/addOrUpdateCompetitionTeams/:id', auth('addOrUpdateTeams'), CompetitionController.addOrUpdateTeams)
-router.delete('/deleteCompetition/:id', auth('deleteCompetitions'), CompetitionController.delete)
+router.get('/addOrUpdateCompetition/:id', auth('addOrUpdate'), adminController.addOrUpdate)
+router.get('/addOrUpdateCompetitionTeams/:id', auth('addOrUpdateTeams'), adminController.addOrUpdateTeams)
+router.delete('/deleteCompetition/:id', auth('deleteCompetitions'), adminController.deleteCompetition)
 
 module.exports = router
