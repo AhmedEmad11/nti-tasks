@@ -17,6 +17,6 @@ router.delete('/deleteNews/:id', auth('deleteNews'), adminController.deleteNews)
 
 router.get('/addOrUpdateCompetition/:id', auth('addOrUpdate'), adminController.addOrUpdate)
 router.get('/addOrUpdateCompetitionTeams/:id', auth('addOrUpdateTeams'), adminController.addOrUpdateTeams)
-router.delete('/deleteCompetition/:id', auth('deleteCompetitions'), adminController.deleteCompetition)
+router.delete('/deleteCompetition/:id', auth('deleteCompetition'), adminController.deleteCompetition)
 
 module.exports = router
