@@ -44,7 +44,6 @@ class NewsController {
             res.send({apiStatus:true, message:"news about one player", data:news})
         }
         catch(e){
-            console.log(e)
             res.status(500).send({
                 apiStatus: false,
                 data: e.message,

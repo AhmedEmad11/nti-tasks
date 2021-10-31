@@ -1,0 +1,9 @@
+<div *ngIf="!noMatches">
+    <ng-container *ngFor="let match of teamMatches">
+        <h6>{{ match.homeTeam.name }} vs {{ match.awayTeam.name }} at {{ match.utcDate|date }}</h6><br>
+    </ng-container>
+</div>
+
+<div *ngIf="noMatches">
+    no matches left this matchday            
+</div>

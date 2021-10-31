@@ -1,0 +1,14 @@
+<section class="container my-3">
+    <form [formGroup]="addPermissionToRoleForm" (ngSubmit)="addPermissionToRole()">
+ 
+        <div class="row mb-3">
+            <input class="form-control"  placeholder="role name" formControlName='role'>
+        </div>
+        <div class="row mb-3">
+            <input class="form-control" placeholder="permission name" formControlName='permission'>
+        </div>
+        <div class="row mb-3">
+            <button class="btn btn-primary">add permission to role</button>
+        </div>
+    </form>
+</section>

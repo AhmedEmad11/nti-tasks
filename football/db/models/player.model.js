@@ -11,16 +11,13 @@ const playerSchema = new mongoose.Schema({
         required:true
     },
     position:{
-        type:String,
-        required:true
+        type:String
     },
     nationality:{
-        type:String,
-        required:true
+        type:String
     },
     shirtNumber:{
-        type:Number,
-        default:null
+        type:Number
     },
     teamId:[{
         type: String,

@@ -1,0 +1,17 @@
+<section class="container">
+    <div class="p-2 my-3">
+        <div class="p-2 ">
+            <h4>{{ comp?.name }}</h4>
+        </div>
+        
+        <div *ngIf="!noMatches">
+            <ng-container *ngFor="let match of compMatches">
+                <h6>{{ match.homeTeam.name }} vs {{ match.awayTeam.name }} at {{ match.utcDate|date }}</h6><br>
+            </ng-container>
+        </div>
+        
+        <div *ngIf="noMatches">
+            no matches left this matchday            
+        </div>
+    </div>
+</section>

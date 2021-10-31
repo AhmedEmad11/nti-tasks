@@ -22,9 +22,12 @@ class UserController {
 
     static login = async(req,res)=>{
         try{
-            const userData = await User.loginUser(req.body.email, req.body.password)
-            const token = await userData.generateToken()
-            res.status(200).send({apiStatus:true, data:{userData, token}, message:"logged in success"})
+            const  loginData = await User.loginUser(req.body.email, req.body.password)
+            const user = loginData['user']
+            const isAdmin = loginData['isAdmin']
+            const token = await user.generateToken()
+
+            res.status(200).send({apiStatus:true, data:{user, token, isAdmin}, message:"logged in success"})
         }
         catch(e){
             res.status(500).send({apiStatus: false, data:e.message, message:"invalid login"})
@@ -35,6 +38,7 @@ class UserController {
         res.status(200).send({
             apiStatus:true,
             data:req.user,
+            isAdmin:req.isAdmin,
             message:"user data loaded"
         })
     }
@@ -57,15 +61,19 @@ class UserController {
     static logout = async(req, res)=>{
         try{
             req.user.tokens = req.user.tokens.filter(token=> token.token != req.token)
-            await req.user.save()
-            res.send({
+            req.user.save()
+            res.status(200).send({
                 apiStatus:true,
-                data:"",
+                data:req.user.tokens,
                 message:"user logged out"
             })
         }
         catch(e){
-            res.send(e)
+            res.status(500).send({
+                apiStatus: false,
+                data: e.message,
+                message:"error in logging user out"
+            })
         }
     }
 
@@ -91,7 +99,6 @@ class UserController {
             res.send({apiStatus:true, message:"all followed players", data:user.followedPlayers})
         }
         catch(e){
-            console.log(e)
             res.status(500).send({
                 apiStatus: false,
                 data: e.message,
@@ -100,10 +107,27 @@ class UserController {
         }
     }
 
+    static unFollowPlayer = async(req, res)=>{
+        try{
+            let user = req.user
+            req.user.followedPlayers = req.user.followedPlayers.filter(player=> player.id != req.body.id)
+            await user.save()
+            res.send({apiStatus:true, message:"all followed players", data:user.followedPlayers})
+        }
+        catch(e){
+            res.status(500).send({
+                apiStatus: false,
+                data: e.message,
+                message:"error in unfollowing player"
+            })
+        }
+    }
+
     static followTeam = async(req, res)=>{
         try{
             let user = req.user
             user.followedTeams.push(req.body)
+            await user.save()
             res.send({apiStatus:true, message:"all followed teams", data:user.followedTeams})
         }
         catch(e){
@@ -115,17 +139,50 @@ class UserController {
         }
     }
 
+    static unFollowTeam = async(req, res)=>{
+        try{
+            let user = req.user
+            req.user.followedTeams = req.user.followedTeams.filter(team=> team.id != req.body.id)
+            await user.save()
+            res.send({apiStatus:true, message:"all followed teams", data:user.followedTeams})
+        }
+        catch(e){
+            res.status(500).send({
+                apiStatus: false,
+                data: e.message,
+                message:"error in unfollowing team"
+            })
+        }
+    }
+
     static followCompetition = async(req, res)=>{
         try{
             let user = req.user
-            user.followedCompetition.push(req.body)
-            res.send({apiStatus:true, message:"all followed competition", data:user.followedCompetition})
+            user.followedCompetitions.push(req.body)
+            await user.save()
+            res.send({apiStatus:true, message:"all followed competition", data:user.followedCompetitions})
         }
         catch(e){
             res.status(500).send({
                 apiStatus: false,
                 data: e.message,
                 message:"error in following competiton"
+            })
+        }
+    }
+
+    static unFollowCompetition = async(req, res)=>{
+        try{
+            let user = req.user
+            req.user.followedCompetitions = req.user.followedCompetitions.filter(comp=> comp.id != req.body.id)
+            await user.save()
+            res.send({apiStatus:true, message:"all followed competitions", data:user.followedCompetitions})
+        }
+        catch(e){
+            res.status(500).send({
+                apiStatus: false,
+                data: e.message,
+                message:"error in unfollowing competition"
             })
         }
     }
@@ -149,7 +206,7 @@ class UserController {
         try{
             let user = req.user
             let followedTeams = user.followedTeams 
-            res.send({apiStatus:true, message:"all followed players", data:followedTeams})
+            res.send({apiStatus:true, message:"all followed teams", data:followedTeams})
         }
         catch(e){
             res.status(500).send({
@@ -163,8 +220,8 @@ class UserController {
     static showCompetitions = async(req, res)=>{
         try{
             let user = req.user
-            let followedCompetitions = user.followedcomperitions 
-            res.send({apiStatus:true, message:"all followed players", data:followedcomperitions})
+            let followedCompetitions = user.followedCompetitions 
+            res.send({apiStatus:true, message:"all followed competitions", data:followedCompetitions})
         }
         catch(e){
             res.status(500).send({

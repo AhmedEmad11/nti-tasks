@@ -13,7 +13,11 @@ router.delete('/delete/', auth('deleteUser'), UserController.delete)
 
 router.post('/followPlayer', auth('followPlayer'), UserController.followPlayer)
 router.post('/followTeam', auth('followTeam'), UserController.followTeam)
-router.post('/followCompetiton', auth('followCompetition'), UserController.followCompetition)
+router.post('/followCompetition', auth('followCompetition'), UserController.followCompetition)
+
+router.post('/unFollowPlayer', auth('unFollowPlayer'), UserController.unFollowPlayer)
+router.post('/unFollowTeam', auth('unFollowTeam'), UserController.unFollowTeam)
+router.post('/unFollowCompetition', auth('unFollowCompetition'), UserController.unFollowCompetition)
 
 router.get('/players', auth('showFollowedPlayers'), UserController.showPlayers)
 router.get('/teams', auth('showFollowedTeams'), UserController.showTeams)

@@ -1,0 +1,26 @@
+<section class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <div class="p-2 my-3 hovering col">
+                    <div class="compBox p-2 ">
+                        <p>name: {{user.name}}</p>
+                        <p>email: {{user.email}}</p>
+                        <ng-container *ngFor="let role of user.roles">
+                            <p>role: {{role.name}}</p>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="p-2 my-3 hovering col">
+                    <div class="compBox p-2 ">
+                        <ng-container *ngFor="let team of teamsData">
+                            <p>{{team.name}}</p>
+                            <p>{{team.tla}}</p>
+                            <p>{{team.venue}}</p>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</section>

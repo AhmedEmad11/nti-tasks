@@ -1,0 +1,14 @@
+<section class="container my-3">
+    <form [formGroup]="addPermissionForm" (ngSubmit)="addPermission()">
+ 
+        <div class="row mb-3">
+            <input class="form-control"  placeholder="name" formControlName='name'>
+        </div>
+        <div class="row mb-3">
+            <input class="form-control" placeholder="description" formControlName='description'>
+        </div>
+        <div class="row mb-3">
+            <button class="btn btn-primary">add permission</button>
+        </div>
+    </form>
+</section>

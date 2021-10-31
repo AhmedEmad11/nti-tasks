@@ -1,0 +1,13 @@
+<section class="container my-3">
+    {{ teams }}
+    <form [formGroup]="followTeamForm" (ngSubmit)="followTeam()">
+        <select class="form-select mb-3" formControlName='id'>
+            <ng-container *ngFor="let team of teams">
+                <option value="{{ team.id }}">{{ team.name }}</option>
+            </ng-container>
+        </select>
+        <div class="row mb-3">
+            <button class="btn btn-primary">follow team</button>
+        </div>
+    </form>
+</section>

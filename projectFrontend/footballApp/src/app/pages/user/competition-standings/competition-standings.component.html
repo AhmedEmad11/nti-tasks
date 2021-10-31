@@ -1,0 +1,18 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">team</th>
+          <th scope="col">points</th>
+          <th scope="col">goal dif</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let one of followedCompetitionsStandings">
+          <th scope="row">{{ one.position }}</th>
+          <td>{{ one.team.name }}</td>
+          <td>{{ one.points }}</td>
+          <td>{{ one.goalDifference }}</td>
+        </tr>
+      </tbody>
+</table>

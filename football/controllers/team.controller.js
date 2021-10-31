@@ -17,6 +17,7 @@ class TeamController {
     }
 
     static showOne = async(req, res)=>{
+    
         try{
             let team = await Team.findOne({id: req.params.id})
             res.send({apiStatus:true, message:"one team", data:team})

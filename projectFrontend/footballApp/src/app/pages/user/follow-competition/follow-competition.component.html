@@ -1,0 +1,13 @@
+<section class="container my-3">
+    {{ competitions }}
+    <form [formGroup]="followCompetitionForm" (ngSubmit)="followCompetition()">
+        <select class="form-select mb-3" formControlName='id'>
+            <ng-container *ngFor="let Competition of competitions">
+                <option value="{{ Competition.id }}">{{ Competition.name }}</option>
+            </ng-container>
+        </select>
+        <div class="row mb-3">
+            <button class="btn btn-primary">follow Competition</button>
+        </div>
+    </form>
+</section>

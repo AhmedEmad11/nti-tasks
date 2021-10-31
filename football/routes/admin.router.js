@@ -11,12 +11,14 @@ router.post("/addPermission", auth('addPermission'), adminController.addPermissi
 router.post("/addRole", auth('addRole'), adminController.addRole)
 router.post("/addRoleToUser", auth('addRoleToUser'), adminController.addRoleToUser)
 router.post("/addPermissionToRole", auth('addPermissionToRole'), adminController.addPermissionToRole)
+router.get("/showPermissions", auth('showPermissions'), adminController.showPermissions)
+router.get("/showRoles", auth('showRoles'), adminController.showRoles)
 
 router.post('/addNews', auth('addNews'), adminController.addNews)
 router.delete('/deleteNews/:id', auth('deleteNews'), adminController.deleteNews)
 
-router.get('/addOrUpdateCompetition/:id', auth('addOrUpdate'), adminController.addOrUpdate)
-router.get('/addOrUpdateCompetitionTeams/:id', auth('addOrUpdateTeams'), adminController.addOrUpdateTeams)
+router.get('/addOrUpdateCompetition/:id', auth('addOrUpdateCompetition'), adminController.addOrUpdateCompetition)
+router.get('/addOrUpdateCompetitionTeams/:id', auth('addOrUpdateCompetitionTeams'), adminController.addOrUpdateTeams)
 router.delete('/deleteCompetition/:id', auth('deleteCompetition'), adminController.deleteCompetition)
 
 module.exports = router

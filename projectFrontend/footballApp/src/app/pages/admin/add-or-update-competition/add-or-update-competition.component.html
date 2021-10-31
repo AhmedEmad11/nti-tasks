@@ -1,0 +1,13 @@
+<section class="container">
+    <div class="row">
+        <div class="col-12 col-md-3 " *ngFor="let c of allComps.competitions">
+            <div class="p-2 my-3">
+                <div class="compBox p-2 ">
+                    <p>{{ c.name }}</p>
+                    <a (click)="addOrUpdateCompetition( c.id )">add or update competition</a> <br>
+                    <a (click)="addOrUpdateCompetitionTeams( c.id )">add or update competition teams</a><br>
+                </div>
+            </div>
+        </div>
+    </div>  
+</section>

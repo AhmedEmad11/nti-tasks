@@ -1,0 +1,18 @@
+<section class="container">
+    <div class="row">
+        <div *ngIf="!newsFound">
+            no news yet
+        </div>
+        <div class="col-12 col-md-3 " *ngFor="let teamNews of followedTeamsNews">
+            <div *ngFor="let one of teamNews">
+                <div class="p-2 my-3 hovering">
+                    <div class="compBox p-2 ">
+                    
+                        <p>{{ one.title }}</p>
+                        <p>{{ one.body }}</p>
+                    </div>
+                </div>
+            </div>    
+        </div>    
+    </div>  
+</section>

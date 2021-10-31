@@ -79,8 +79,46 @@ userSchema.statics.loginUser = async(email,password)=>{
     if(!user) throw new Error("email not found")
     const isValidPass = await bcrypt.compare(password, user.password)
     if(!isValidPass) throw new Error("invalid password")
-    return user
+    
+    let prems = await user.populate({
+        path: 'roles',
+        populate: [{
+            path: 'permissions',
+            model: 'Permission'
+        }]
+    })
+    let isAdmin = false
+    if(prems.roles != []) {
+        prems.roles.forEach( role=>{
+            if(role.name == "admin"){
+                isAdmin = true
+            } 
+        } )
+    }  
+    return {user, isAdmin}
 }
+
+userSchema.statics.checkIfAdmin = async(email,password)=>{
+    const user = await User.findOne({email})
+    let prems = await user.populate({
+        path: 'roles',
+        populate: [{
+            path: 'permissions',
+            model: 'Permission'
+        }]
+    })
+    let isAdmin = false
+    if(prems.roles != []) {
+        prems.roles.forEach( role=>{
+            if(role.name == "admin"){
+                isAdmin = true
+            } 
+        } )
+    }  
+    return isAdmin
+}
+
+
 userSchema.methods.generateToken = async function(){
     const user = this
     const token = jwt.sign({_id: user._id}, process.env.JWTTOKEN)

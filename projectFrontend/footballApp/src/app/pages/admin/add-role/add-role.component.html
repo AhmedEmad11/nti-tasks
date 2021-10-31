@@ -1,0 +1,16 @@
+<section class="container my-3">
+    <form [formGroup]="addRoleForm" (ngSubmit)="addRole()">
+        <div class="row mb-3">
+            <input class="form-control"  placeholder="role name" formControlName='name'>
+        </div>
+        <ng-container formArrayName="permissions" *ngFor="let perm of permissions.controls; let i = index">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [formControlName]="i">
+            {{permissionsData[i].description}}
+          </div>
+        </ng-container>
+        <div class="row mb-3">
+            <button class="btn btn-primary">add permission to role</button>
+        </div>
+      </form>
+</section>

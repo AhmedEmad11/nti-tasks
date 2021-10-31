@@ -1,0 +1,21 @@
+<section class="container my-3">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+        <div class="row mb-3">
+            <input class="form-control"  placeholder="your email" formControlName='email'>
+        </div>
+        <div class="alert alert-danger my-3" *ngIf="email?.invalid && ( email?.dirty ||email?.touched)">
+            <p *ngIf="email?.errors?.required"> * email is required </p>
+            <p *ngIf="email?.errors?.email"> * invalid email format </p>
+        </div>
+        <div class="row mb-3">
+            <input class="form-control" type="password" placeholder="your password" formControlName='password'>
+        </div>
+        <div class="alert alert-danger my-3" *ngIf="password?.invalid && ( password?.dirty ||password?.touched)">
+            <p *ngIf="password?.errors?.pattern || password?.errors?.required"> * invalid password format (password must contain capital letter, small letter, number, specaial character and more than 8 characters)</p>
+        </div>
+        <div class="row mb-3">
+            <button class="btn btn-primary">login</button>
+        </div>
+    </form>
+</section>

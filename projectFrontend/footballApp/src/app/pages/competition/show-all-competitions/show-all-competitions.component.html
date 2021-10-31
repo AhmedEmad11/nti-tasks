@@ -1,0 +1,13 @@
+<section class="container">
+    <div class="row">
+        <div class="col-12 col-md-3 " *ngFor="let c of allComps">
+            <div class="p-2 my-3">
+                <div class="compBox p-2 ">
+                    <p>{{ c.name }}</p>
+                    <a [routerLink]="['/competition/one', c.id]">show competition</a> <br>
+                    <a *ngIf="this.isAdmin" (click)="deleteCompetition( c.id )">delete competition</a>
+                </div>
+            </div>
+        </div>
+    </div>  
+</section>

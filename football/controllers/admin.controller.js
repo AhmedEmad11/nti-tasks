@@ -8,7 +8,7 @@ const News = require("../db/models/news.model")
 
 const http =require("http")
 
-class UserController {
+class AdminController {
 
     static addPermission = async(req, res)=>{
         try{
@@ -60,8 +60,8 @@ class UserController {
     
     static addPermissionToRole = async(req, res)=>{
         try{
-            let role = await Role.findOne({_id:req.body.role})
-            let perm = await Permission.findOne({_id:req.body.permission})
+            let role = await Role.findOne({name:req.body.role})
+            let perm = await Permission.findOne({name:req.body.permission})
             role.permissions.push(perm)
             await role.save()
             res.send(role)
@@ -89,7 +89,21 @@ class UserController {
         }
     }
 
-    static addOrUpdate = async(req, res)=>{
+    static showRoles = async(req, res)=>{
+        try{
+            let roles = await Role.find()
+            res.send({apiStatus:true, message:"all roles", data:roles})
+        }
+        catch(e){
+            res.status(500).send({
+                apiStatus: false,
+                data: e.message,
+                message:"error in showing all roles"
+            })
+        }
+    }
+
+    static addOrUpdateCompetition = async(req, res)=>{
         try{
             let options = {
                 host : "api.football-data.org",
@@ -115,12 +129,7 @@ class UserController {
                         let message = ""
                         let competition = await Competition.findOne({id: data.id})
                         if (!competition){
-                            competition = new Competition({
-                                // id: data.id, 
-                                // name: data.name, 
-                                // currentSeason: data.currentSeason
-                                ...data
-                            })
+                            competition = new Competition({...data})
                             message = "competition added"
                         } else {
                             competition.currentSeason = data.currentSeason
@@ -173,16 +182,7 @@ class UserController {
                             await Team.deleteMany({compId: req.params.id})
                         }
                         data.teams.forEach( async(el)=>{   
-                            let team = new Team({
-                                // id: el.id, 
-                                // name: el.name, 
-                                compId: data.competition.id,
-                                ...el
-                                // tla: el.tla,
-                                // crestUrl: el.crestUrl,
-                                // founded: el.founded,
-                                // venue: el.venue
-                            })
+                            let team = new Team({compId: data.competition.id, ...el})
                             await team.save()
                         })
                         message = "competition teams added"
@@ -207,15 +207,18 @@ class UserController {
 
     static deleteCompetition = async(req, res)=>{
         try{
-            await Competition.deleteOne({id: req.params.id})
-            res.send({apiStatus:true, message:"competition deleted", data:[]})
+            let deletedComp = await Competition.deleteOne({id: req.params.id})
+            if(deletedComp){
+                res.status(200).send({apiStatus:true, message:"competition deleted", data: deletedComp})
+            }
         }
         catch(e){
-            res.status(500).send({
-                apiStatus: false,
-                data: e.message,
-                message:"error in deleting competition"
-            })
+                res.status(500).send({
+                    apiStatus: false,
+                    data: e.message,
+                    message:"error in deleting competition"
+                })
+            
         }
     }
 
@@ -262,16 +265,14 @@ class UserController {
             
             const request = http.request(options, (response)=>{
                 let result = "" 
-                if(response.statusCode == 200)
-                {
+                if(response.statusCode == 200){
                     response.on('data', (dataPart)=>{
                         result += dataPart.toString()
                     })
                     
                     response.on('end', async()=>{
-                        
+
                         let data = JSON.parse(result)
-                        let message = ""
                         let team = await Team.findOne({id: req.params.id})
                         if(!team){
                             throw new Error('team not found')
@@ -282,34 +283,32 @@ class UserController {
 
                         data.squad.forEach( async(el)=>{   
                           
-                            let player = new Player({
-                                // id         : el.id,
-                                // name       : el.name,
-                                // position   : el.position,
-                                // nationality: el.nationality,
-                                // shirtNumber: el.shirtNumber,
-                                ...el
-                            })
-                            player.teamId.push(data.id)
-                            await player.save(function(err, doc) {
-                                if (err) console.log(err);
-                            })
+                            let player = await Player.findOne({id: el.id})
+                            if(!player){
+                                player = new Player({...el})
+                                player.teamId.push(data.id)
+                                await player.save()
+                            } 
                         })
-                        message = "team players added"
-                        let addPlayers = await Player.find({team : data.id})
-                        res.send({apiStatus:true, message, data: addPlayers})
+                        
                     })
+                } else if(response.statusCode == 429) {
+                    res.status(500).send({
+                        apiStatus: false,
+                        message:"api request limit reached"
+                    })                    
                 } else {
-                    throw new Error("error getting data")
+                    throw new Error('error getting data')
                 }
             })
             request.end()
+            res.status(200).send({apiStatus:true, message:"success"})
         }
         catch(e){
             res.status(500).send({
                 apiStatus: false,
                 data: e.message,
-                message:"error in adding team"
+                message:"error in adding team squad"
             })
         }
     }
@@ -329,4 +328,4 @@ class UserController {
     }
 }
 
-module.exports = UserController
+module.exports = AdminController

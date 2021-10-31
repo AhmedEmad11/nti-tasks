@@ -1,0 +1,6 @@
+<section class="container" *ngIf="loaded">
+    <ul class="col-12 col-md-4 " *ngFor="let perm of permissions">
+        <li class="text-primary">name: {{perm.name}}</li>
+        <li class="text-primary">description: {{perm.description}}</li>
+    </ul>
+</section>

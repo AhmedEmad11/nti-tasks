@@ -1,0 +1,11 @@
+<section class="container">
+    <div class="row">
+        <div class="col-12 col-md-3 " *ngFor="let t of followedCompetitionsData">
+            <div>
+                <p>{{ t.name }}</p>
+                <a (click)="unfollowCompetition( t.id )">unfollow</a>
+                <app-competition-standings [compId]="t.id"></app-competition-standings>
+            </div>
+        </div>
+    </div>  
+</section>
